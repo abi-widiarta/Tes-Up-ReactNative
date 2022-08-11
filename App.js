@@ -7,10 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
 
 const App = () => {
   return (
@@ -18,7 +14,7 @@ const App = () => {
       <TouchableOpacity
         style={styles.ImageContainer}
         onPress={() => {
-          console.log('gambar ditekan');
+          console.log('gambar ditekan boy');
         }}>
         <Image
           style={[styles.ImageStyles, styles.ImageStyles2]}
