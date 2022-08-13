@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import Cart from './src/components/Cart';
 import PropsStory from './src/pages/PropsStory/index';
 import StateCounter from './src/pages/StateCounter';
+import KomunikasiAntarKomponen from './src/pages/KomunikasiAntarKomponen';
 
 const App = () => {
   return (
@@ -52,7 +54,9 @@ const App = () => {
     //     />
     //   </View>
     // </ScrollView>
-    <StateCounter />
+
+    // <StateCounter />
+    // <KomunikasiAntarKomponen />
   );
 };
 
