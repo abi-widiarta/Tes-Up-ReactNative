@@ -11,16 +11,19 @@ import Cart from './src/components/Cart';
 import StateCounter from './src/pages/StateCounter';
 import KomunikasiAntarKomponen from './src/pages/KomunikasiAntarKomponen';
 import CallAPIGet from './src/pages/CallAPIGet';
+import CallAPIAxios from './src/pages/CallAPIAxios';
+import LocalAPI from './src/pages/LocalAPI';
 
 const App = () => {
   return (
     // <StateCounter />
     // <KomunikasiAntarKomponen />
 
-    <View>
-      <Text>Tes Get API</Text>
-      <CallAPIGet />
-    </View>
+    // <View>
+    //   {/* <CallAPIGet /> */}
+    // </View>
+    // <CallAPIAxios />
+    <LocalAPI />
   );
 };
 

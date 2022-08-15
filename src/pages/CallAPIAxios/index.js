@@ -1,6 +1,7 @@
 import {Button, StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {useState, useEffect} from 'react';
+const axios = require('axios').default;
 
 const index = () => {
   let emptyObj = {
@@ -13,39 +14,23 @@ const index = () => {
 
   const [profile, setProfile] = useState(emptyObj);
 
-  // useEffect(() => {
-  //   fetch('https://reqres.in/api/users/2')
-  //     .then(response => response.json())
-  //     .then(json => {
-  //       console.log(json);
-  //       setProfile(json.data);
-  //     });
-  // }, []);
-
-  // Call API Method GET
+  // Call API Method GET dengan Axios
   const getData = () => {
-    fetch('https://reqres.in/api/users/6')
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-        setProfile(json.data);
-      });
+    axios
+      .get('https://reqres.in/api/users/6')
+      .then(json => setProfile(json.data.data))
+      .catch(err => console.log(`err : ${err}`));
   };
 
-  // API Method POST
+  // API Method POST dengan Axios
   const postData = () => {
-    fetch('https://reqres.in/api/users', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: 'morpheus',
-        job: 'leader',
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    });
-    // .then(response => response.json())
-    // .then(json => console.log(json));
+    const dataPost = {
+      name: 'morpheus',
+      job: 'leader',
+    };
+    axios
+      .post('https://reqres.in/api/users', dataPost)
+      .then(response => console.log(response));
   };
   return (
     <View style={styles.wrapper}>
