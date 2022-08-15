@@ -1,3 +1,16 @@
 {
-  "users": []
+  "users": [
+    {
+      "nama": "Thomas Slebew",
+      "email": "slebew@gmail.com",
+      "bidang": "FE",
+      "id": 1
+    },
+    {
+      "nama": "John Slebew",
+      "email": "john@gmail.com",
+      "bidang": "BE",
+      "id": 2
+    }
+  ]
 }
