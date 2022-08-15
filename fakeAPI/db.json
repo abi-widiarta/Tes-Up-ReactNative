@@ -19,22 +19,16 @@
       "id": 3
     },
     {
-      "nama": "Stuart3",
-      "email": "stuart@gmail.com",
-      "bidang": "be",
-      "id": 4
-    },
-    {
       "nama": "asdf",
       "email": "asdf",
       "bidang": "asdf",
-      "id": 5
+      "id": 4
     },
     {
-      "nama": "Bob",
-      "email": "bob@gmail.com",
-      "bidang": "fe",
-      "id": 6
+      "nama": "res",
+      "email": "tes",
+      "bidang": "gege",
+      "id": 5
     }
   ]
 }

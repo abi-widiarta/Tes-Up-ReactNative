@@ -7,11 +7,11 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const axios = require('axios').default;
 
-const Profile = () => {
+const Profile = ({name, email, bidang}) => {
   return (
     <View style={styles.profileWrapper}>
       <Image
@@ -21,20 +21,22 @@ const Profile = () => {
         style={styles.descImage}
       />
       <View style={styles.descText}>
-        <Text style={styles.descName}>Nama</Text>
-        <Text>Email</Text>
-        <Text>Bidang</Text>
+        <Text style={styles.descName}>{name}</Text>
+        <Text>{email}</Text>
+        <Text>{bidang}</Text>
       </View>
       <Text style={styles.descDelete}>X</Text>
     </View>
   );
 };
 
-const Form = () => {
+const index = () => {
   const [nama, setNama] = useState('');
   const [email, setEmail] = useState('');
   const [bidang, setBidang] = useState('');
+  const [users, setUsers] = useState([]);
 
+  // METHOD POST
   const submitData = () => {
     const data = {
       nama,
@@ -42,19 +44,9 @@ const Form = () => {
       bidang,
     };
 
-    const data2 = {
-      name: 'morpheus',
-      job: 'leader',
-    };
     console.log('data before post : ', data);
 
-    // axios
-    //   .post('https://reqres.in/api/users', {
-    //     name: 'hehe',
-    //     job: 'fe',
-    //   })
-    //   .then(response => console.log(response));
-
+    // POST
     axios.post('http://192.168.1.11:3000/users', data).then(res => {
       console.log(res);
     });
@@ -62,46 +54,61 @@ const Form = () => {
     setNama('');
     setEmail('');
     setBidang('');
+    getData();
   };
 
-  return (
-    <View>
-      <Text>Masukkan Anggota :</Text>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Nama Lengkap"
-        value={nama}
-        onChangeText={value => {
-          setNama(value);
-        }}></TextInput>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Email"
-        value={email}
-        onChangeText={value => {
-          setEmail(value);
-        }}></TextInput>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Bidang"
-        value={bidang}
-        onChangeText={value => {
-          setBidang(value);
-        }}></TextInput>
-      <Button title="SUBMIT" onPress={submitData} />
-    </View>
-  );
-};
+  // METHOD GET
+  const getData = () => {
+    axios.get('http://192.168.1.11:3000/users').then(res => {
+      console.log(res);
+      setUsers(res.data);
+    });
+  };
 
-const index = () => {
+  // UNTUK MENAMPILKAN HASIL METHOD GET
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <ScrollView style={styles.wrapper}>
       <Text style={styles.title}>Local API (JSON Server)</Text>
-      <Form />
+      <View>
+        <Text>Masukkan Anggota :</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Nama Lengkap"
+          value={nama}
+          onChangeText={value => {
+            setNama(value);
+          }}></TextInput>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Email"
+          value={email}
+          onChangeText={value => {
+            setEmail(value);
+          }}></TextInput>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Bidang"
+          value={bidang}
+          onChangeText={value => {
+            setBidang(value);
+          }}></TextInput>
+        <Button title="SUBMIT" onPress={submitData} />
+      </View>
       <View style={styles.line}></View>
-      <Profile />
-      <Profile />
-      <Profile />
+      {users.map(user => {
+        return (
+          <Profile
+            key={user.id}
+            name={user.nama}
+            email={user.email}
+            bidang={user.bidang}
+          />
+        );
+      })}
     </ScrollView>
   );
 };
