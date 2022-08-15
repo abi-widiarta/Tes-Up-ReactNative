@@ -1,34 +1,3 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "nama": "John",
-      "email": "john@gmail.com",
-      "bidang": "fe"
-    },
-    {
-      "nama": "Stuart",
-      "email": "stuart@gmail.com",
-      "bidang": "be",
-      "id": 2
-    },
-    {
-      "nama": "Stuart2",
-      "email": "stuart@gmail.com",
-      "bidang": "be",
-      "id": 3
-    },
-    {
-      "nama": "asdf",
-      "email": "asdf",
-      "bidang": "asdf",
-      "id": 4
-    },
-    {
-      "nama": "res",
-      "email": "tes",
-      "bidang": "gege",
-      "id": 5
-    }
-  ]
+  "users": []
 }

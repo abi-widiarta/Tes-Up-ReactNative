@@ -6,17 +6,19 @@ import {
   View,
   Image,
   ScrollView,
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 const axios = require('axios').default;
 
-const Profile = ({name, email, bidang}) => {
+const Profile = ({name, email, bidang, onPress, onDelete}) => {
   return (
-    <View style={styles.profileWrapper}>
+    <TouchableOpacity onPress={onPress} style={styles.profileWrapper}>
       <Image
         source={{
-          uri: 'https://instagram.fsub8-1.fna.fbcdn.net/v/t51.2885-19/294536673_146807297950310_1033072475142311163_n.jpg?stp=dst-jpg_s320x320&_nc_ht=instagram.fsub8-1.fna.fbcdn.net&_nc_cat=1&_nc_ohc=NIfgOIJm4oAAX998G1C&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AT9sIp6U87pl8PKQJ8LwdNfIYB2MLydOR2xTFORrjIVqGA&oe=62FFC8D7&_nc_sid=8fd12b',
+          uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
         }}
         style={styles.descImage}
       />
@@ -25,8 +27,10 @@ const Profile = ({name, email, bidang}) => {
         <Text>{email}</Text>
         <Text>{bidang}</Text>
       </View>
-      <Text style={styles.descDelete}>X</Text>
-    </View>
+      <TouchableOpacity onPress={onDelete}>
+        <Text style={styles.descDelete}>X</Text>
+      </TouchableOpacity>
+    </TouchableOpacity>
   );
 };
 
@@ -35,44 +39,86 @@ const index = () => {
   const [email, setEmail] = useState('');
   const [bidang, setBidang] = useState('');
   const [users, setUsers] = useState([]);
-
-  // METHOD POST
-  const submitData = () => {
-    const data = {
-      nama,
-      email,
-      bidang,
-    };
-
-    console.log('data before post : ', data);
-
-    // POST
-    axios.post('http://192.168.1.11:3000/users', data).then(res => {
-      console.log(res);
-    });
-
-    setNama('');
-    setEmail('');
-    setBidang('');
-    getData();
-  };
-
-  // METHOD GET
-  const getData = () => {
-    axios.get('http://192.168.1.11:3000/users').then(res => {
-      console.log(res);
-      setUsers(res.data);
-    });
-  };
+  const [button, setButton] = useState('SAVE');
+  const [selectedItem, setSelectedItem] = useState({});
 
   // UNTUK MENAMPILKAN HASIL METHOD GET
   useEffect(() => {
     getData();
   }, []);
 
+  // FUNGSI METHOD POST
+  const submitData = () => {
+    const data = {
+      nama,
+      email,
+      bidang,
+    };
+    // console.log('data before post : ', data);
+
+    if (button == 'SAVE' && (nama == '' || email == '' || bidang == '')) {
+      // Form tidak boleh kosong
+      alert('Form tidak boleh kosong!');
+      setNama('');
+      setEmail('');
+      setBidang('');
+      getData();
+    } else if (button == 'SAVE') {
+      // POST
+      axios.post('http://192.168.1.11:3000/users', data).then(res => {
+        console.log(res);
+        setNama('');
+        setEmail('');
+        setBidang('');
+        getData();
+      });
+    } else if (button == 'UPDATE') {
+      // PUT
+      axios
+        .put(`http://192.168.1.11:3000/users/${selectedItem.id}`, data)
+        .then(() => {
+          console.log(res);
+          setButton('SAVE');
+          setNama('');
+          setEmail('');
+          setBidang('');
+          getData();
+        });
+    }
+  };
+
+  // FUNGSI METHOD GET
+  const getData = () => {
+    axios.get('http://192.168.1.11:3000/users').then(res => {
+      console.log('res get :', res);
+      setUsers(res.data);
+    });
+  };
+
+  // FUNGSI METHOD PUT
+  const updateData = user => {
+    setNama(user.nama);
+    setEmail(user.email);
+    setBidang(user.bidang);
+    setButton('UPDATE');
+    setSelectedItem(user);
+  };
+
+  // FUNGSI METHOD DELETE
+  const deleteData = user => {
+    axios.delete(`http://192.168.1.11:3000/users/${user.id}`).then(res => {
+      console.log(res);
+      setNama('');
+      setEmail('');
+      setBidang('');
+      setButton('SAVE');
+      getData();
+    });
+  };
+
   return (
     <ScrollView style={styles.wrapper}>
-      <Text style={styles.title}>Local API (JSON Server)</Text>
+      <Text style={styles.title}>Local API (JSON Server) My Phone</Text>
       <View>
         <Text>Masukkan Anggota :</Text>
         <TextInput
@@ -96,7 +142,7 @@ const index = () => {
           onChangeText={value => {
             setBidang(value);
           }}></TextInput>
-        <Button title="SUBMIT" onPress={submitData} />
+        <Button title={button} onPress={submitData} />
       </View>
       <View style={styles.line}></View>
       {users.map(user => {
@@ -106,6 +152,29 @@ const index = () => {
             name={user.nama}
             email={user.email}
             bidang={user.bidang}
+            onPress={() => {
+              updateData(user);
+            }}
+            onDelete={() => {
+              Alert.alert(
+                'Peringatan!',
+                'Anda yakin ingin menghapus user ini?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      deleteData(user);
+                      console.log('User Deleted Pressed');
+                    },
+                  },
+                ],
+              );
+            }}
           />
         );
       })}
