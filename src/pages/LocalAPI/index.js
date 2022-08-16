@@ -76,7 +76,7 @@ const index = () => {
       // PUT
       axios
         .put(`http://192.168.1.11:3000/users/${selectedItem.id}`, data)
-        .then(() => {
+        .then(res => {
           console.log(res);
           setButton('SAVE');
           setNama('');

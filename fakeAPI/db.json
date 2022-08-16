@@ -7,10 +7,16 @@
       "id": 1
     },
     {
-      "nama": "John Slebew",
+      "nama": "John Slebew Gang",
       "email": "john@gmail.com",
       "bidang": "BE",
       "id": 2
+    },
+    {
+      "nama": "Tes Aja",
+      "email": "Tes@gmaio.com",
+      "bidang": "FE",
+      "id": 3
     }
   ]
 }
