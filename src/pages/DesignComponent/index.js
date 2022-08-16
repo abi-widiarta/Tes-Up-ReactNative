@@ -134,6 +134,7 @@ const SwapableItem = () => {
         <TouchableOpacity
           onPress={() => {
             alert('Done Pressed');
+            reset();
           }}
           style={{
             borderTopLeftRadius: 15,
@@ -146,7 +147,13 @@ const SwapableItem = () => {
             marginVertical: 20,
             marginHorizontal: 20,
             paddingBottom: 20,
-          }}></TouchableOpacity>
+            justifyContent: 'center',
+          }}>
+          <Image
+            style={{width: 20, height: 20, marginTop: 20, marginLeft: 40}}
+            source={require('../../images/icon-checked.png')}
+          />
+        </TouchableOpacity>
         // <Button
         //   title="Info"
         //   onPress={() => reset()}
@@ -158,8 +165,10 @@ const SwapableItem = () => {
         <TouchableOpacity
           onPress={() => {
             alert('Delete Pressed');
+            reset();
           }}
           style={{
+            position: 'relative',
             borderTopRightRadius: 15,
             borderBottomRightRadius: 15,
             backgroundColor: '#FFA0A0',
@@ -169,10 +178,16 @@ const SwapableItem = () => {
             // marginVertical: 20,
             marginTop: 20,
             marginLeft: -70,
+            justifyContent: 'center',
             // marginBottom: -20,
             // marginHorizontal: 20,
             // paddingBottom: 20,
-          }}></TouchableOpacity>
+          }}>
+          <Image
+            style={{width: 18, height: 21, position: 'absolute', right: 50}}
+            source={require('../../images/icon-trash.png')}
+          />
+        </TouchableOpacity>
       )}>
       {/* <Button title="My Icon" /> */}
       <ListItem.Content
