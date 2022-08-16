@@ -128,10 +128,13 @@ const SwapableItem = () => {
         marginTop: 16,
         borderRadius: 10,
         overflow: 'hidden',
-        elevation: 10,
+        elevation: 8,
       }}
       leftContent={reset => (
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            alert('Done Pressed');
+          }}
           style={{
             borderTopLeftRadius: 15,
             borderBottomLeftRadius: 15,
@@ -143,7 +146,7 @@ const SwapableItem = () => {
             marginVertical: 20,
             marginHorizontal: 20,
             paddingBottom: 20,
-          }}></View>
+          }}></TouchableOpacity>
         // <Button
         //   title="Info"
         //   onPress={() => reset()}
@@ -152,7 +155,10 @@ const SwapableItem = () => {
         // />
       )}
       rightContent={reset => (
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            alert('Delete Pressed');
+          }}
           style={{
             borderTopRightRadius: 15,
             borderBottomRightRadius: 15,
@@ -166,7 +172,7 @@ const SwapableItem = () => {
             // marginBottom: -20,
             // marginHorizontal: 20,
             // paddingBottom: 20,
-          }}></View>
+          }}></TouchableOpacity>
       )}>
       {/* <Button title="My Icon" /> */}
       <ListItem.Content
