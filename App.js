@@ -13,6 +13,7 @@ import KomunikasiAntarKomponen from './src/pages/KomunikasiAntarKomponen';
 import CallAPIGet from './src/pages/CallAPIGet';
 import CallAPIAxios from './src/pages/CallAPIAxios';
 import LocalAPI from './src/pages/LocalAPI';
+import DesignComponent from './src/pages/DesignComponent';
 
 const App = () => {
   return (
@@ -23,7 +24,8 @@ const App = () => {
     //   {/* <CallAPIGet /> */}
     // </View>
     // <CallAPIAxios />
-    <LocalAPI />
+    // <LocalAPI />
+    <DesignComponent />
   );
 };
 
