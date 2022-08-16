@@ -217,53 +217,80 @@ const SwapableItem = () => {
   );
 };
 
+const PlusButton = () => {
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        alert('Plus Button Pressed');
+      }}
+      style={{
+        width: 54,
+        height: 54,
+        backgroundColor: '#FF844B',
+        borderRadius: 50,
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Image
+        style={{width: 25, height: 25}}
+        source={require('../../images/icon-plus.png')}
+      />
+    </TouchableOpacity>
+  );
+};
+
 const index = () => {
   return (
-    <ScrollView style={styles.container}>
-      <Profile />
-      <View style={{alignItems: 'center', marginBottom: 20}}>
-        <View
-          style={{
-            width: 300,
-            height: 290,
-            // borderWidth: 2,
-            alignItems: 'center',
-            borderRadius: 10,
-            overflow: 'hidden',
-            elevation: 3,
-          }}>
+    <View style={{position: 'relative', flex: 1}}>
+      <ScrollView style={styles.container}>
+        <Profile />
+        <View style={{alignItems: 'center', marginBottom: 20}}>
           <View
             style={{
               width: 300,
               height: 290,
+              // borderWidth: 2,
+              alignItems: 'center',
+              borderRadius: 10,
+              overflow: 'hidden',
+              elevation: 3,
             }}>
-            <CalendarList
-              horizontal={true}
-              pagingEnabled={true}
-              calendarWidth={300}
-              calendarHeight={290}
-              onDayPress={day => {
-                console.log(day);
-              }}
-              theme={{
-                'stylesheet.day.basic': {
-                  base: {
-                    width: 20,
-                    height: 20,
+            <View
+              style={{
+                width: 300,
+                height: 290,
+              }}>
+              <CalendarList
+                horizontal={true}
+                pagingEnabled={true}
+                calendarWidth={300}
+                calendarHeight={290}
+                onDayPress={day => {
+                  console.log(day);
+                }}
+                theme={{
+                  'stylesheet.day.basic': {
+                    base: {
+                      width: 20,
+                      height: 20,
+                    },
                   },
-                },
-                textDayFontSize: 12,
-                textMonthFontSize: 12,
-                textDayHeaderFontSize: 12,
-              }}
-            />
+                  textDayFontSize: 12,
+                  textMonthFontSize: 12,
+                  textDayHeaderFontSize: 12,
+                }}
+              />
+            </View>
           </View>
         </View>
-      </View>
-      <UpNext />
-
-      {/* <View style={{backgroundColor: 'red', height: 200, marginTop: 20}}></View> */}
-    </ScrollView>
+        <UpNext />
+        {/* <View style={{backgroundColor: 'red', height: 200, marginTop: 20}}></View> */}
+      </ScrollView>
+      <PlusButton />
+    </View>
   );
 };
 
@@ -272,6 +299,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F9F9F9',
     borderWidth: 1,
+    position: 'relative',
   },
 });
 
