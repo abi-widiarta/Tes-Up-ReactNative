@@ -20,6 +20,14 @@ function ModalComponent() {
   const [iconBorder2, setIconBorder2] = useState('white');
   const [iconBorder3, setIconBorder3] = useState('white');
 
+  const [bgDay1, setBgDay1] = useState('white');
+  const [bgDay2, setBgDay2] = useState('white');
+  const [bgDay3, setBgDay3] = useState('white');
+  const [bgDay4, setBgDay4] = useState('white');
+  const [bgDay5, setBgDay5] = useState('white');
+  const [bgDay6, setBgDay6] = useState('white');
+  const [bgDay7, setBgDay7] = useState('white');
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -46,6 +54,40 @@ function ModalComponent() {
         setIconBorder3('#A8A8A8');
         break;
       }
+    }
+  };
+
+  const toggleBgDay = color => {
+    if (color == 'white') {
+      return '#E9E9E9';
+    } else if (color == '#E9E9E9') {
+      return 'white';
+    }
+  };
+
+  const dayPressed = day => {
+    switch (day) {
+      case 1:
+        setBgDay1(toggleBgDay(bgDay1));
+        break;
+      case 2:
+        setBgDay2(toggleBgDay(bgDay2));
+        break;
+      case 3:
+        setBgDay3(toggleBgDay(bgDay3));
+        break;
+      case 4:
+        setBgDay4(toggleBgDay(bgDay4));
+        break;
+      case 5:
+        setBgDay5(toggleBgDay(bgDay5));
+        break;
+      case 6:
+        setBgDay6(toggleBgDay(bgDay6));
+        break;
+      case 7:
+        setBgDay7(toggleBgDay(bgDay7));
+        break;
     }
   };
 
@@ -101,7 +143,13 @@ function ModalComponent() {
               }}></TextInput>
           </View>
           {/* pick icon */}
-          <View style={{marginVertical: 20}}>
+          <View
+            style={{
+              marginVertical: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: 'rgba(0,0,0,0.1)',
+              paddingBottom: 20,
+            }}>
             <Text
               style={{fontSize: 13, color: '#9F9F9F', paddingHorizontal: 30}}>
               Pick an icon for your activity
@@ -162,11 +210,90 @@ function ModalComponent() {
               </TouchableOpacity>
             </View>
           </View>
+          {/* day reminded */}
+          <View style={{marginVertical: 20}}>
+            <Text
+              style={{fontSize: 13, color: '#9F9F9F', paddingHorizontal: 30}}>
+              When would you like to be reminded?
+            </Text>
+            <View
+              style={{
+                marginVertical: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: 'rgba(0,0,0,0.1)',
+                paddingBottom: 20,
+                paddingHorizontal: 30,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(1);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay1}]}>
+                <Text style={{color: 'black', fontSize: 9}}>M</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(2);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay2}]}>
+                <Text style={{color: 'black', fontSize: 9}}>T</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(3);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay3}]}>
+                <Text style={{color: 'black', fontSize: 9}}>W</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(4);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay4}]}>
+                <Text style={{color: 'black', fontSize: 9}}>T</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(5);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay5}]}>
+                <Text style={{color: 'black', fontSize: 9}}>F</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(6);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay6}]}>
+                <Text style={{color: 'black', fontSize: 9}}>S</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  dayPressed(7);
+                }}
+                style={[styles.dayPicker, {backgroundColor: bgDay7}]}>
+                <Text style={{color: 'black', fontSize: 9}}>S</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </ScrollView>
         <Button title="Hide modal" onPress={toggleModal} />
       </Modal>
     </View>
   );
 }
+const styles = StyleSheet.create({
+  dayPicker: {
+    // backgroundColor: 'red',
+    borderWidth: 2,
+    borderColor: '#E9E9E9',
+    width: 35,
+    height: 35,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default ModalComponent;
