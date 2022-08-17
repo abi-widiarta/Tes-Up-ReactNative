@@ -1,20 +1,52 @@
 import {
   StyleSheet,
+  Image,
   Text,
   View,
   Button,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
+import SwitchSelector from 'react-native-switch-selector';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
 import PlusButton from './plusButton';
 
 function ModalComponent() {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+  const [iconBorder1, setIconBorder1] = useState('white');
+  const [iconBorder2, setIconBorder2] = useState('white');
+  const [iconBorder3, setIconBorder3] = useState('white');
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const iconPressed = icon => {
+    switch (icon) {
+      case 'yellow': {
+        setIconBorder1('#A8A8A8');
+        setIconBorder2('white');
+        setIconBorder3('white');
+        break;
+      }
+
+      case 'green': {
+        setIconBorder1('white');
+        setIconBorder2('#A8A8A8');
+        setIconBorder3('white');
+        break;
+      }
+
+      case 'purple': {
+        setIconBorder1('white');
+        setIconBorder2('white');
+        setIconBorder3('#A8A8A8');
+        break;
+      }
+    }
   };
 
   return (
@@ -74,14 +106,61 @@ function ModalComponent() {
               style={{fontSize: 13, color: '#9F9F9F', paddingHorizontal: 30}}>
               Pick an icon for your activity
             </Text>
-            <TextInput
+            <View
               style={{
                 paddingHorizontal: 30,
-                borderBottomWidth: 1,
-                borderColor: 'rgba(0,0,0,0.1)',
-                color: '#252525',
-                fontSize: 13,
-              }}></TextInput>
+                marginVertical: 10,
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  iconPressed('yellow');
+                }}
+                style={{width: 60, marginRight: 10}}>
+                <Image
+                  style={{
+                    width: 60,
+                    height: 50,
+                    borderWidth: 2,
+                    borderRadius: 15,
+                    borderColor: iconBorder1,
+                  }}
+                  source={require('../images/yellow-icon.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  iconPressed('green');
+                }}
+                style={{width: 60, marginRight: 10}}>
+                <Image
+                  style={{
+                    width: 60,
+                    height: 50,
+                    borderWidth: 2,
+                    borderRadius: 15,
+                    borderColor: iconBorder2,
+                  }}
+                  source={require('../images/green-icon.png')}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  iconPressed('purple');
+                }}
+                style={{width: 60, marginRight: 10}}>
+                <Image
+                  style={{
+                    width: 60,
+                    height: 50,
+                    borderWidth: 2,
+                    borderRadius: 15,
+                    borderColor: iconBorder3,
+                  }}
+                  source={require('../images/purple-icon.png')}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
         <Button title="Hide modal" onPress={toggleModal} />
