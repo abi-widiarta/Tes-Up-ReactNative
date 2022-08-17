@@ -3,7 +3,8 @@ import React from 'react';
 import {ListItem} from '@rneui/themed';
 import {Dimensions} from 'react-native';
 
-const SwapableItem = () => {
+const SwapableItem = props => {
+  console.log(props);
   return (
     <ListItem.Swipeable
       style={{
@@ -11,7 +12,7 @@ const SwapableItem = () => {
         marginHorizontal: 20,
         // marginVertical: 20,
         marginTop: 16,
-        borderRadius: 10,
+        borderRadius: 20,
         overflow: 'hidden',
         elevation: 8,
       }}
@@ -90,14 +91,13 @@ const SwapableItem = () => {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               style={{
-                width: 40,
+                width: 48,
                 height: 40,
                 borderRadius: 50,
                 marginRight: 20,
               }}
-              source={{
-                uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
-              }}
+              source={require('../images/green-icon.png')}
+              // source={require(`${props.url}`)}
             />
             <View>
               <Text style={{fontWeight: '600', color: '#0D0C0C', fontSize: 14}}>

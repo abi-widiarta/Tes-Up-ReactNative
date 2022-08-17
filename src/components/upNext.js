@@ -8,9 +8,9 @@ const UpNext = () => {
       <Text style={{fontSize: 14, color: '#666666', paddingHorizontal: 20}}>
         Up Next
       </Text>
-      <SwapableItem />
-      <SwapableItem />
-      <SwapableItem />
+      <SwapableItem url="../images/green-icon.png" />
+      <SwapableItem url="../images/green-icon.png" />
+      <SwapableItem url="../images/green-icon.png" />
     </View>
   );
 };

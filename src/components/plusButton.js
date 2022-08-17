@@ -8,13 +8,13 @@ const PlusButton = () => {
         alert('Plus Button Pressed');
       }}
       style={{
-        width: 54,
-        height: 54,
+        width: 55,
+        height: 55,
         backgroundColor: '#FF844B',
         borderRadius: 50,
         position: 'absolute',
         right: 20,
-        bottom: 20,
+        bottom: 100,
         alignItems: 'center',
         justifyContent: 'center',
       }}>

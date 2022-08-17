@@ -30,7 +30,7 @@ const Profile = () => {
         <Image
           style={{width: 50, height: 50, borderRadius: 50}}
           source={{
-            uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
+            uri: 'https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2022/05/30/1296735921.jpg',
           }}
         />
       </View>
