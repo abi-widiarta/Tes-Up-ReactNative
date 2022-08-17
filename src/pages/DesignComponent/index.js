@@ -1,308 +1,102 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 
 import {
   View,
   StyleSheet,
-  Text,
-  StatusBar,
-  Image,
   ScrollView,
+  Text,
   TouchableOpacity,
-  TouchableHighlight,
-  Button,
+  StatusBar,
 } from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import {ListItem} from '@rneui/themed';
-import {Dimensions} from 'react-native';
+import Accordion from 'react-native-collapsible/Accordion';
+// import {ListItem} from '@rneui/themed';
+import Profile from '../../components/profile';
+import PlusButton from '../../components/plusButton';
+import CalendarComponent from '../../components/calendar';
+import UpNext from '../../components/upNext';
 
-const Profile = () => {
-  return (
-    <View
-      style={{
-        // borderWidth: 1,
-        paddingHorizontal: 20,
-        marginTop: 20,
-        marginBottom: 10,
-      }}>
+// import {
+//   Collapse,
+//   CollapseHeader,
+//   CollapseBody,
+// } from 'accordion-collapse-react-native';
+
+const SECTIONS = [
+  {
+    title: 'See Calendar ...',
+  },
+];
+
+class AccordionView extends Component {
+  state = {
+    activeSections: [],
+  };
+
+  _renderHeader = section => {
+    return (
       <View
         style={{
-          // backgroundColor: 'white',
-          borderRadius: 15,
-          // elevation: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 16,
+          flex: 1,
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+          // borderWidth: 1,
+          borderRadius: 10,
         }}>
-        <View>
-          <Text style={{fontWeight: 'bold', color: '#0D0C0C', fontSize: 18}}>
-            Hello PANES!
-          </Text>
-          <Text style={{color: '#9F9F9F', fontSize: 13}}>Monday, 28 Jan</Text>
-        </View>
-        <Image
-          style={{width: 40, height: 40, borderRadius: 50}}
-          source={{
-            uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
+        <Text style={{color: '#666666'}}>{section.title}</Text>
+      </View>
+    );
+  };
+
+  _renderContent = section => {
+    return <CalendarComponent />;
+  };
+
+  _updateSections = activeSections => {
+    this.setState({activeSections});
+  };
+
+  render() {
+    return (
+      <View style={{marginTop: 20}}>
+        <Accordion
+          containerStyle={{
+            // backgroundColor: '#white',
+            flex: 1,
+            // paddingVertical: 10,
+            borderRadius: 15,
+            overflow: 'hidden',
+            marginHorizontal: 20,
           }}
+          sectionContainerStyle={{
+            // backgroundColor: 'white',
+            // paddingHorizontal: 20,
+            borderWidth: 2,
+            borderColor: '#FF844B',
+            borderRadius: 10,
+          }}
+          underlayColor={'#FF844B'}
+          sections={SECTIONS}
+          activeSections={this.state.activeSections}
+          renderSectionTitle={this._renderSectionTitle}
+          renderHeader={this._renderHeader}
+          renderContent={this._renderContent}
+          onChange={this._updateSections}
         />
       </View>
-    </View>
-  );
-};
-
-const leftSwipe = () => {
-  return (
-    <View style={{backgroundColor: 'red'}}>
-      <Text>tes</Text>
-    </View>
-  );
-};
-
-const UpNextItem = () => {
-  return (
-    <TouchableHighlight
-      activeOpacity={0.6}
-      underlayColor="#DDDDDD"
-      onPress={() => console.log('pressed')}
-      style={{
-        // borderWidth: 1,
-        // paddingHorizontal: 20,
-        marginTop: 20,
-        marginBottom: 10,
-      }}>
-      <View
-        style={{
-          backgroundColor: 'white',
-          borderRadius: 15,
-          elevation: 6,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingHorizontal: 16,
-          paddingVertical: 16,
-        }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            style={{width: 40, height: 40, borderRadius: 50, marginRight: 20}}
-            source={{
-              uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
-            }}
-          />
-          <View>
-            <Text style={{fontWeight: '600', color: '#0D0C0C', fontSize: 14}}>
-              Clip Project Team
-            </Text>
-            <Text style={{color: '#9F9F9F', fontSize: 11}}>
-              Revision & Discuss
-            </Text>
-          </View>
-        </View>
-        <Text style={{color: '#9F9F9F', fontSize: 11}}>11.00 AM</Text>
-      </View>
-    </TouchableHighlight>
-  );
-};
-
-const UpNext = () => {
-  return (
-    <View style={{paddingBottom: 20}}>
-      <Text style={{fontSize: 16, color: '#666666', paddingHorizontal: 20}}>
-        Up Next
-      </Text>
-      <SwapableItem />
-      <SwapableItem />
-      <SwapableItem />
-    </View>
-  );
-};
-
-const SwapableItem = () => {
-  return (
-    <ListItem.Swipeable
-      style={{
-        // borderWidth: 1,
-        marginHorizontal: 20,
-        // marginVertical: 20,
-        marginTop: 16,
-        borderRadius: 10,
-        overflow: 'hidden',
-        elevation: 8,
-      }}
-      leftContent={reset => (
-        <TouchableOpacity
-          onPress={() => {
-            alert('Done Pressed');
-            reset();
-          }}
-          style={{
-            borderTopLeftRadius: 15,
-            borderBottomLeftRadius: 15,
-            // borderWidth: 2,
-            backgroundColor: '#CCFFD2',
-            width: Dimensions.get('window').width / 2 - 20,
-            // minHeight: '100%',
-            height: '79%',
-            marginVertical: 20,
-            marginHorizontal: 20,
-            paddingBottom: 20,
-            justifyContent: 'center',
-          }}>
-          <Image
-            style={{width: 20, height: 20, marginTop: 20, marginLeft: 40}}
-            source={require('../../images/icon-checked.png')}
-          />
-        </TouchableOpacity>
-        // <Button
-        //   title="Info"
-        //   onPress={() => reset()}
-        //   icon={{name: 'info', color: 'white'}}
-        //   buttonStyle={{minHeight: '100%', marginVertical: 20}}
-        // />
-      )}
-      rightContent={reset => (
-        <TouchableOpacity
-          onPress={() => {
-            alert('Delete Pressed');
-            reset();
-          }}
-          style={{
-            position: 'relative',
-            borderTopRightRadius: 15,
-            borderBottomRightRadius: 15,
-            backgroundColor: '#FFA0A0',
-            width: Dimensions.get('window').width / 2 - 20,
-            height: '79%',
-            // height: '60%',
-            // marginVertical: 20,
-            marginTop: 20,
-            marginLeft: -70,
-            justifyContent: 'center',
-            // marginBottom: -20,
-            // marginHorizontal: 20,
-            // paddingBottom: 20,
-          }}>
-          <Image
-            style={{width: 18, height: 21, position: 'absolute', right: 50}}
-            source={require('../../images/icon-trash.png')}
-          />
-        </TouchableOpacity>
-      )}>
-      {/* <Button title="My Icon" /> */}
-      <ListItem.Content
-      // style={{borderWidth: 1}}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            // borderWidth: 1,
-            // flex: 1,
-            width: '100%',
-            justifyContent: 'space-between',
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Image
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 50,
-                marginRight: 20,
-              }}
-              source={{
-                uri: 'https://static.wikia.nocookie.net/peaky-blinders/images/8/8e/Tommys3.jpg/revision/latest/top-crop/width/360/height/360?cb=20190715140230',
-              }}
-            />
-            <View>
-              <Text style={{fontWeight: '600', color: '#0D0C0C', fontSize: 14}}>
-                Clip Project Team
-              </Text>
-              <Text style={{color: '#9F9F9F', fontSize: 11}}>
-                Revision & Discuss
-              </Text>
-            </View>
-          </View>
-          <Text style={{color: '#9F9F9F', fontSize: 11}}>11.00 AM</Text>
-        </View>
-        {/* <ListItem.Title>Hello Swiper</ListItem.Title> */}
-      </ListItem.Content>
-      {/* <ListItem.Chevron /> */}
-    </ListItem.Swipeable>
-  );
-};
-
-const PlusButton = () => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        alert('Plus Button Pressed');
-      }}
-      style={{
-        width: 54,
-        height: 54,
-        backgroundColor: '#FF844B',
-        borderRadius: 50,
-        position: 'absolute',
-        right: 20,
-        bottom: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Image
-        style={{width: 25, height: 25}}
-        source={require('../../images/icon-plus.png')}
-      />
-    </TouchableOpacity>
-  );
-};
+    );
+  }
+}
 
 const index = () => {
   return (
     <View style={{position: 'relative', flex: 1}}>
+      <StatusBar backgroundColor={'#F9F9F9'} barStyle={'dark-content'} />
       <ScrollView style={styles.container}>
         <Profile />
-        <View style={{alignItems: 'center', marginBottom: 20}}>
-          <View
-            style={{
-              width: 300,
-              height: 290,
-              // borderWidth: 2,
-              alignItems: 'center',
-              borderRadius: 10,
-              overflow: 'hidden',
-              elevation: 3,
-            }}>
-            <View
-              style={{
-                width: 300,
-                height: 290,
-              }}>
-              <CalendarList
-                horizontal={true}
-                pagingEnabled={true}
-                calendarWidth={300}
-                calendarHeight={290}
-                onDayPress={day => {
-                  console.log(day);
-                }}
-                theme={{
-                  'stylesheet.day.basic': {
-                    base: {
-                      width: 20,
-                      height: 20,
-                    },
-                  },
-                  textDayFontSize: 12,
-                  textMonthFontSize: 12,
-                  textDayHeaderFontSize: 12,
-                }}
-              />
-            </View>
-          </View>
-        </View>
+        <AccordionView />
+        {/* <CollapseView /> */}
+        {/* <CalendarComponent /> */}
         <UpNext />
-        {/* <View style={{backgroundColor: 'red', height: 200, marginTop: 20}}></View> */}
       </ScrollView>
       <PlusButton />
     </View>
@@ -313,7 +107,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F9F9F9',
-    borderWidth: 1,
+    // borderWidth: 1,
     position: 'relative',
   },
 });
