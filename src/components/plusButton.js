@@ -1,12 +1,10 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const PlusButton = () => {
+const PlusButton = ({onPress}) => {
   return (
     <TouchableOpacity
-      onPress={() => {
-        alert('Plus Button Pressed');
-      }}
+      onPress={onPress}
       style={{
         width: 55,
         height: 55,
@@ -14,7 +12,7 @@ const PlusButton = () => {
         borderRadius: 50,
         position: 'absolute',
         right: 20,
-        bottom: 100,
+        bottom: 20,
         alignItems: 'center',
         justifyContent: 'center',
       }}>
