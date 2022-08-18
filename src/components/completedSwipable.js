@@ -27,8 +27,8 @@ const CompletedSwipable = props => {
               reset();
             }}
             style={{
-              borderTopLeftRadius: 15,
-              borderBottomLeftRadius: 15,
+              borderTopLeftRadius: 20,
+              borderBottomLeftRadius: 20,
               // borderWidth: 2,
               backgroundColor: '#CCFFD2',
               width: Dimensions.get('window').width / 2 - 20,
@@ -59,8 +59,8 @@ const CompletedSwipable = props => {
             }}
             style={{
               position: 'relative',
-              borderTopRightRadius: 15,
-              borderBottomRightRadius: 15,
+              borderTopRightRadius: 22,
+              borderBottomRightRadius: 22,
               backgroundColor: '#FFA0A0',
               width: Dimensions.get('window').width / 2 - 20,
               height: '79%',

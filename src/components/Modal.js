@@ -12,6 +12,38 @@ import SwitchSelector from 'react-native-switch-selector';
 import React, {useState} from 'react';
 import Modal from 'react-native-modal';
 import PlusButton from './plusButton';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
+const TimePicker = () => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = date => {
+    console.warn('A date has been picked: ', date);
+    hideDatePicker();
+  };
+
+  return (
+    <View style={{alignItems: 'center'}}>
+      <TouchableOpacity onPress={showDatePicker}>
+        <Text>SET WAKTU</Text>
+      </TouchableOpacity>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="time"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+    </View>
+  );
+};
 
 function ModalComponent() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -103,10 +135,10 @@ function ModalComponent() {
         style={{margin: 0, position: 'relative'}}>
         <ScrollView
           style={{
-            borderWidth: 2,
+            // borderWidth: 2,
             bottom: 0,
-            marginTop: '30%',
-            height: 600,
+            marginTop: '15%',
+            height: 800,
             backgroundColor: 'white',
             borderTopLeftRadius: 15,
             borderTopRightRadius: 15,
@@ -119,6 +151,7 @@ function ModalComponent() {
               Name your activity
             </Text>
             <TextInput
+              maxLength={20}
               style={{
                 paddingHorizontal: 30,
                 borderBottomWidth: 1,
@@ -134,6 +167,7 @@ function ModalComponent() {
               What is is about?
             </Text>
             <TextInput
+              maxLength={25}
               style={{
                 paddingHorizontal: 30,
                 borderBottomWidth: 1,
@@ -167,8 +201,8 @@ function ModalComponent() {
                 style={{width: 60, marginRight: 10}}>
                 <Image
                   style={{
-                    width: 60,
-                    height: 50,
+                    width: 55,
+                    height: 45,
                     borderWidth: 2,
                     borderRadius: 15,
                     borderColor: iconBorder1,
@@ -183,8 +217,8 @@ function ModalComponent() {
                 style={{width: 60, marginRight: 10}}>
                 <Image
                   style={{
-                    width: 60,
-                    height: 50,
+                    width: 55,
+                    height: 45,
                     borderWidth: 2,
                     borderRadius: 15,
                     borderColor: iconBorder2,
@@ -199,8 +233,8 @@ function ModalComponent() {
                 style={{width: 60, marginRight: 10}}>
                 <Image
                   style={{
-                    width: 60,
-                    height: 50,
+                    width: 55,
+                    height: 45,
                     borderWidth: 2,
                     borderRadius: 15,
                     borderColor: iconBorder3,
@@ -211,17 +245,22 @@ function ModalComponent() {
             </View>
           </View>
           {/* day reminded */}
-          <View style={{marginVertical: 20}}>
+          <View
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              // paddingBottom: 20,
+              // borderBottomWidth: 1,
+              borderBottomColor: 'rgba(0,0,0,0.1)',
+            }}>
             <Text
               style={{fontSize: 13, color: '#9F9F9F', paddingHorizontal: 30}}>
               When would you like to be reminded?
             </Text>
             <View
               style={{
-                marginVertical: 10,
-                borderBottomWidth: 1,
-                borderBottomColor: 'rgba(0,0,0,0.1)',
-                paddingBottom: 20,
+                marginTop: 10,
+                marginBottom: 25,
                 paddingHorizontal: 30,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -276,9 +315,25 @@ function ModalComponent() {
                 <Text style={{color: 'black', fontSize: 9}}>S</Text>
               </TouchableOpacity>
             </View>
+            <TimePicker />
+            {/* timePicker */}
           </View>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#E9E9E9',
+              height: 40,
+              marginTop: 10,
+              marginHorizontal: 20,
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+            }}
+            onPress={toggleModal}>
+            <Text style={{color: '#252525', fontWeight: 'bold', fontSize: 14}}>
+              BUAT HABIT
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
-        <Button title="Hide modal" onPress={toggleModal} />
       </Modal>
     </View>
   );
